@@ -4,8 +4,10 @@ using System.Collections;
 public class Shooting : MonoBehaviour {
 
 	public GameObject bullet;
-	
 	public float force;
+	public float fireRate;
+
+	float lastShot;
 
 	Transform barrelEnd;
 
@@ -13,16 +15,12 @@ public class Shooting : MonoBehaviour {
 		barrelEnd = transform.Find("Pivot").Find("Barrel").Find("BarrelEnd");
 	}
 
-	// Debug
-	void Update () {
-		if (Input.GetMouseButtonDown(0)) {
-			Shoot();
-		}
-	}
-
 	public void Shoot () {
-		GameObject bulletIns = (GameObject)Instantiate(bullet, barrelEnd.position, Quaternion.identity);
-		Rigidbody irb = bulletIns.GetComponent<Rigidbody>();
-		irb.velocity = barrelEnd.forward * force;
+		if (lastShot < Time.time + fireRate) {
+			GameObject bulletIns = (GameObject)Instantiate(bullet, barrelEnd.position, Quaternion.identity);
+			Rigidbody rb = bulletIns.GetComponent<Rigidbody>();
+			rb.velocity = barrelEnd.forward * force;
+			lastShot = Time.time;
+		}
 	}
 }
