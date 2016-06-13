@@ -23,6 +23,6 @@ public class Shooting : MonoBehaviour {
 	public void Shoot () {
 		GameObject bulletIns = (GameObject)Instantiate(bullet, barrelEnd.position, Quaternion.identity);
 		Rigidbody irb = bulletIns.GetComponent<Rigidbody>();
-		irb.velocity = transform.forward * force;
+		irb.velocity = barrelEnd.forward * force;
 	}
 }
