@@ -4,6 +4,7 @@ using System.Collections;
 public class InputTesting : MonoBehaviour {
 
 	Valve.VR.EVRButtonId trigger = Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger;
+	Valve.VR.EVRButtonId grip = Valve.VR.EVRButtonId.k_EButton_Grip;
 
 
 	SteamVR_Controller.Device controller;
@@ -24,7 +25,7 @@ public class InputTesting : MonoBehaviour {
 
 	void Update () {
 
-		if (controller.GetPressDown(trigger)) {
+		if (controller.GetPressDown(grip)) {
 			print(name + " Trigger");
 			if (holdable != null) {
 				currentlyHolding = holdable;
@@ -33,7 +34,7 @@ public class InputTesting : MonoBehaviour {
 				onHoldRot = currentlyHolding.rotation;
 			}
 		}
-		if (controller.GetPressUp(trigger)) {
+		if (controller.GetPressUp(grip)) {
 			currentlyHolding.GetComponent<Rigidbody>().isKinematic = false;
 			currentlyHolding.GetComponent<Rigidbody>().velocity = controller.velocity;
 			currentlyHolding.GetComponent<Rigidbody>().angularVelocity = controller.angularVelocity;

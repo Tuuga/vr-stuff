@@ -8,6 +8,8 @@ public class BulletBehaviour : MonoBehaviour {
 	}
 
 	void OnCollisionEnter (Collision c) {
-		Destroy(gameObject, 1);
+		if (c.gameObject.tag != "Trigger") {
+			Destroy(gameObject, 1);
+		}
 	}
 }
