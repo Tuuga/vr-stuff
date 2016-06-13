@@ -10,16 +10,17 @@ public class Shooting : MonoBehaviour {
 	Transform barrelEnd;
 
 	void Start () {
-		barrelEnd = transform.Find("Barrel").Find("BarrelEnd");
+		barrelEnd = transform.Find("Pivot").Find("Barrel").Find("BarrelEnd");
 	}
 
+	// Debug
 	void Update () {
 		if (Input.GetMouseButtonDown(0)) {
 			Shoot();
 		}
 	}
 
-	void Shoot () {
+	public void Shoot () {
 		GameObject bulletIns = (GameObject)Instantiate(bullet, barrelEnd.position, Quaternion.identity);
 		Rigidbody irb = bulletIns.GetComponent<Rigidbody>();
 		irb.velocity = transform.forward * force;

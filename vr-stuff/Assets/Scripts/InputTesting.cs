@@ -17,6 +17,8 @@ public class InputTesting : MonoBehaviour {
 	Vector3 onHoldPos;
 	Quaternion onHoldRot;
 
+	bool holding;
+
 	void Start () {
 		trackedObj = GetComponent<SteamVR_TrackedObject>();
 		controller = SteamVR_Controller.Input((int)trackedObj.index);
@@ -25,16 +27,17 @@ public class InputTesting : MonoBehaviour {
 
 	void Update () {
 
-		if (controller.GetPressDown(grip)) {
+		if (controller.GetPressDown(grip) && !holding) {
 			print(name + " Trigger");
 			if (holdable != null) {
+				holding = true;
 				currentlyHolding = holdable;
 				currentlyHolding.GetComponent<Rigidbody>().isKinematic = true;
 				onHoldPos = currentlyHolding.position;
 				onHoldRot = currentlyHolding.rotation;
 			}
-		}
-		if (controller.GetPressUp(grip)) {
+		} else if (controller.GetPressDown(grip) && holding) {
+			holding = false;
 			currentlyHolding.GetComponent<Rigidbody>().isKinematic = false;
 			currentlyHolding.GetComponent<Rigidbody>().velocity = controller.velocity;
 			currentlyHolding.GetComponent<Rigidbody>().angularVelocity = controller.angularVelocity;
@@ -44,6 +47,12 @@ public class InputTesting : MonoBehaviour {
 		if (currentlyHolding != null) {
 			currentlyHolding.position = triggerPoint.position;
 			currentlyHolding.rotation = transform.rotation;
+			if (controller.GetPressDown(trigger)) {
+				Shooting gun = currentlyHolding.GetComponent<Shooting>();
+				if (gun != null) {
+					gun.Shoot();
+				}
+			}
 		}
 	}
 
