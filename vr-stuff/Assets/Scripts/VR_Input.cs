@@ -68,10 +68,10 @@ public class VR_Input : MonoBehaviour {
 	}
 
 	void OnTriggerEnter (Collider c) {
-		holdable = c.GetComponent<Holdable>();
-
-		if (holdable != null)
+		if (c.GetComponent<Holdable>() != null) {
+			holdable = c.GetComponent<Holdable>();
 			holdable.SetHighlightColor();
+		}
 	}
 
 	void OnTriggerExit (Collider c) {

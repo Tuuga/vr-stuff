@@ -41,11 +41,11 @@ public class Debug_Input : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerEnter (Collider c) {
-		holdable = c.transform.root.GetComponent<Holdable>();
-
-		if (holdable != null)
+	void OnTriggerEnter(Collider c) {
+		if (c.GetComponent<Holdable>() != null) {
+			holdable = c.GetComponent<Holdable>();
 			holdable.SetHighlightColor();
+		}
 	}
 
 	void OnTriggerExit (Collider c) {
