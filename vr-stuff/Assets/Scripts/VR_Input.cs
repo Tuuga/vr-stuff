@@ -8,7 +8,7 @@ public class VR_Input : MonoBehaviour {
 	EVRButtonId trigger = EVRButtonId.k_EButton_SteamVR_Trigger;
 	EVRButtonId grip = EVRButtonId.k_EButton_Grip;
 	EVRButtonId menu = EVRButtonId.k_EButton_ApplicationMenu;
-	EVRButtonId touchPadDown = EVRButtonId.k_EButton_DPad_Down;
+	EVRButtonId touchPad = EVRButtonId.k_EButton_SteamVR_Touchpad;
 
 	SteamVR_Controller.Device controller;
 	SteamVR_TrackedObject trackedObj;
@@ -34,14 +34,14 @@ public class VR_Input : MonoBehaviour {
 		}		
 
 		// Holds and snaps an object
-		if (controller.GetPressDown(touchPadDown) && holdable != null) {
+		if (controller.GetPressDown(touchPad) && holdable != null) {
 			currentlyHolding = holdable;
 			currentlyHolding.HoldSnap(transform);
 			ToggleModelsActive();
 		}
 
 		// Drops the held object
-		if ((controller.GetPressUp(grip) || controller.GetPressUp(touchPadDown)) && currentlyHolding != null) {
+		if ((controller.GetPressUp(grip) || controller.GetPressUp(touchPad)) && currentlyHolding != null) {
 			currentlyHolding.Drop(controller.velocity, controller.angularVelocity);
 			currentlyHolding = null;
 			ToggleModelsActive();
