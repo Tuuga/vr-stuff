@@ -31,7 +31,7 @@ public class VR_Input : MonoBehaviour {
 			currentlyHolding = holdable;
 			currentlyHolding.Hold(transform);
 			ToggleModelsActive();
-		}		
+		}
 
 		// Holds and snaps an object
 		if (controller.GetPressDown(touchPad) && holdable != null) {
@@ -55,6 +55,10 @@ public class VR_Input : MonoBehaviour {
 			}
 		}
 		
+		if (controller.GetPressDown(trigger) && currentlyHolding == null) {
+			Teleport.Tele(transform, transform.parent);
+		}
+
 		// Scene reset
 		if (controller.GetPressDown(menu)) {
 			SceneManager.LoadScene(SceneManager.GetActiveScene().name);

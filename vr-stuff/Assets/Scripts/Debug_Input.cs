@@ -30,7 +30,7 @@ public class Debug_Input : MonoBehaviour {
 		if ((Input.GetKeyUp(KeyCode.E) || Input.GetKeyUp(KeyCode.R)) && currentlyHolding != null) {
 			currentlyHolding.Drop(rb.velocity, rb.angularVelocity);
 			currentlyHolding = null;
-		}		
+		}
 
 		// If held object is gun, shoot
 		if (Input.GetMouseButtonDown(0) && currentlyHolding != null) {
@@ -38,6 +38,10 @@ public class Debug_Input : MonoBehaviour {
 			if (gun != null) {
 				gun.Shoot();
 			}
+		}
+
+		if (Input.GetMouseButtonDown(1)) {
+			Teleport.Tele(transform.parent, transform.parent);
 		}
 	}
 
