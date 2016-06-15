@@ -11,9 +11,9 @@ public class Button : MonoBehaviour {
 		if (bt == ButtonType.Reset) {
 			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 		} else if (bt == ButtonType.MakeMeBigger) {
-			GameObject.Find("[CameraRig]").transform.localScale += Vector3.one;
+			GameObject.Find("[CameraRig]").transform.localScale += Vector3.one / 4;
 		} else if (bt == ButtonType.MakeMeSmaller) {
-			GameObject.Find("[CameraRig]").transform.localScale -= Vector3.one;
+			GameObject.Find("[CameraRig]").transform.localScale -= Vector3.one / 4;
 		}
 	}
 }
