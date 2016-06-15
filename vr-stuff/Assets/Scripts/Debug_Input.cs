@@ -7,6 +7,7 @@ public class Debug_Input : MonoBehaviour {
 
 	Holdable holdable;
 	Holdable currentlyHolding;
+	bool holdToggle;
 
 	void Start () {
 		rb = GetComponent<Rigidbody>();
@@ -30,6 +31,19 @@ public class Debug_Input : MonoBehaviour {
 		if ((Input.GetKeyUp(KeyCode.E) || Input.GetKeyUp(KeyCode.R)) && currentlyHolding != null) {
 			currentlyHolding.Drop(rb.velocity, rb.angularVelocity);
 			currentlyHolding = null;
+		}
+
+		// Hold snap toggle
+		if (Input.GetKeyDown(KeyCode.T)) {
+			if (!holdToggle && holdable != null) {
+				currentlyHolding = holdable;
+				currentlyHolding.HoldSnap(transform);
+				holdToggle = true;
+			} else if (holdToggle && currentlyHolding != null) {
+				currentlyHolding.Drop(rb.velocity, rb.angularVelocity);
+				currentlyHolding = null;
+				holdToggle = false;
+			}
 		}
 
 		// If held object is gun, shoot

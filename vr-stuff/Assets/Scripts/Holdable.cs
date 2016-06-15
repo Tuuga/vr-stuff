@@ -23,6 +23,7 @@ public class Holdable : MonoBehaviour {
 		if (t.GetComponentInChildren<Holdable>() == null) {
 			ToggleKinematic();
 			transform.parent = t;
+			ResetColor();
 		}
 	}
 
@@ -35,6 +36,7 @@ public class Holdable : MonoBehaviour {
 			transform.parent = t;
 			transform.localPosition = Vector3.zero;
 			transform.localRotation = Quaternion.identity;
+			ResetColor();
 		}
 	}
 
