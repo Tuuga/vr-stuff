@@ -16,6 +16,8 @@ public class VR_Input : MonoBehaviour {
 	Holdable holdable;
 	Holdable currentlyHolding;
 
+	Button button;
+
 	[Tooltip("Toggles these objects activity")]
 	public GameObject[] models;
 
@@ -54,9 +56,9 @@ public class VR_Input : MonoBehaviour {
 				gun.Shoot();
 			}
 		}
-		
-		if (controller.GetPressDown(trigger) && currentlyHolding == null) {
-			Teleport.Tele(transform, transform.parent);
+
+		if (controller.GetPressDown(trigger) && button != null) {
+			button.Press();
 		}
 
 		// Scene reset
@@ -75,6 +77,8 @@ public class VR_Input : MonoBehaviour {
 		if (c.GetComponent<Holdable>() != null) {
 			holdable = c.GetComponent<Holdable>();
 			holdable.SetHighlightColor();
+		} else if (c.GetComponent<Button>() != null) {
+			button = c.GetComponent<Button>();
 		}
 	}
 
@@ -84,5 +88,6 @@ public class VR_Input : MonoBehaviour {
 			holdableExit.ResetColor();
 
 		holdable = null;
+		button = null;
 	}
 }

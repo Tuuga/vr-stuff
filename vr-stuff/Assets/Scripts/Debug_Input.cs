@@ -9,6 +9,8 @@ public class Debug_Input : MonoBehaviour {
 	Holdable currentlyHolding;
 	bool holdToggle;
 
+	Button button;
+
 	void Start () {
 		rb = GetComponent<Rigidbody>();
 	}
@@ -46,6 +48,11 @@ public class Debug_Input : MonoBehaviour {
 			}
 		}
 
+		// Press button
+		if (Input.GetKeyDown(KeyCode.F) && button != null) {
+			button.Press();
+		}
+
 		// If held object is gun, shoot
 		if (Input.GetMouseButtonDown(0) && currentlyHolding != null) {
 			var gun = currentlyHolding.GetComponent<Shooting>();
@@ -63,6 +70,8 @@ public class Debug_Input : MonoBehaviour {
 		if (c.GetComponent<Holdable>() != null) {
 			holdable = c.GetComponent<Holdable>();
 			holdable.SetHighlightColor();
+		} else if (c.GetComponent<Button>() != null) {
+			button = c.GetComponent<Button>();
 		}
 	}
 
@@ -72,5 +81,6 @@ public class Debug_Input : MonoBehaviour {
 			holdableExit.ResetColor();
 
 		holdable = null;
+		button = null;
 	}
 }
