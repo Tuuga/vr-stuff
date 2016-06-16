@@ -11,6 +11,8 @@ public class Debug_Input : MonoBehaviour {
 
 	Button button;
 
+	SliderScript slider;
+
 	void Start () {
 		rb = GetComponent<Rigidbody>();
 	}
@@ -53,6 +55,10 @@ public class Debug_Input : MonoBehaviour {
 			button.Press();
 		}
 
+		if (Input.GetKey(KeyCode.E) && slider != null) {
+			slider.Move(transform);
+		}
+
 		// If held object is gun, shoot
 		if (Input.GetMouseButtonDown(0) && currentlyHolding != null) {
 			var gun = currentlyHolding.GetComponent<Shooting>();
@@ -72,7 +78,9 @@ public class Debug_Input : MonoBehaviour {
 			holdable.SetHighlightColor();
 		} else if (c.GetComponent<Button>() != null) {
 			button = c.GetComponent<Button>();
-		}
+		} else if (c.transform.root.GetComponent<SliderScript>() != null) {
+			slider = c.transform.root.GetComponent<SliderScript>();
+		} 
 	}
 
 	void OnTriggerExit (Collider c) {
@@ -82,5 +90,6 @@ public class Debug_Input : MonoBehaviour {
 
 		holdable = null;
 		button = null;
+		slider = null;
 	}
 }

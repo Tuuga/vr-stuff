@@ -18,6 +18,8 @@ public class VR_Input : MonoBehaviour {
 
 	Button button;
 
+	SliderScript slider;
+
 	[Tooltip("Toggles these objects activity")]
 	public GameObject[] models;
 
@@ -57,6 +59,10 @@ public class VR_Input : MonoBehaviour {
 			}
 		}
 
+		if (controller.GetPress(trigger) && slider != null) {
+			slider.Move(transform);
+		}
+
 		if (controller.GetPressDown(trigger) && button != null) {
 			button.Press();
 		}
@@ -79,6 +85,8 @@ public class VR_Input : MonoBehaviour {
 			holdable.SetHighlightColor();
 		} else if (c.GetComponent<Button>() != null) {
 			button = c.GetComponent<Button>();
+		} else if (c.transform.root.GetComponent<SliderScript>() != null) {
+			slider = c.transform.root.GetComponent<SliderScript>();
 		}
 	}
 
@@ -89,5 +97,6 @@ public class VR_Input : MonoBehaviour {
 
 		holdable = null;
 		button = null;
+		slider = null;
 	}
 }
