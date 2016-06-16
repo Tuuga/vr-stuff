@@ -18,4 +18,8 @@ public class SliderScript : MonoBehaviour {
 		value = 0.5f + z; // 0 - 1 range
 		valueText.text = "" + Mathf.Round(value * 100) / 100;
 	}
+
+	public float GetValue () {
+		return value;
+	}
 }
