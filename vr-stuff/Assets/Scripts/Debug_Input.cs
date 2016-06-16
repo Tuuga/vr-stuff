@@ -90,8 +90,10 @@ public class Debug_Input : MonoBehaviour {
 
 		if (c.GetComponent<Holdable>())
 			holdable = null;
+
 		if (c.GetComponent<Button>())
 			button = null;
+
 		if (c.GetComponent<SliderScript>())
 			slider = null;
 	}
