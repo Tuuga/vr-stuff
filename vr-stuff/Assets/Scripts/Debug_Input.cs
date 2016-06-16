@@ -88,13 +88,13 @@ public class Debug_Input : MonoBehaviour {
 		if (holdableExit != null)
 			holdableExit.ResetColor();
 
-		if (c.GetComponent<Holdable>())
+		if (c.GetComponent<Holdable>() != null)
 			holdable = null;
 
-		if (c.GetComponent<Button>())
+		if (c.GetComponent<Button>() != null)
 			button = null;
 
-		if (c.GetComponent<SliderScript>())
+		if (c.GetComponent<SliderScript>() != null)
 			slider = null;
 	}
 }
