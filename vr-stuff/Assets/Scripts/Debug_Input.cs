@@ -78,18 +78,21 @@ public class Debug_Input : MonoBehaviour {
 			holdable.SetHighlightColor();
 		} else if (c.GetComponent<Button>() != null) {
 			button = c.GetComponent<Button>();
-		} else if (c.transform.root.GetComponent<SliderScript>() != null) {
-			slider = c.transform.root.GetComponent<SliderScript>();
-		} 
+		} else if (c.transform.parent.parent.GetComponent<SliderScript>() != null) {
+			slider = c.transform.parent.parent.GetComponent<SliderScript>();
+		}
 	}
 
-	void OnTriggerExit (Collider c) {
+	void OnTriggerExit(Collider c) {
 		var holdableExit = c.GetComponent<Holdable>();
 		if (holdableExit != null)
 			holdableExit.ResetColor();
 
-		holdable = null;
-		button = null;
-		slider = null;
+		if (c.GetComponent<Holdable>())
+			holdable = null;
+		if (c.GetComponent<Button>())
+			button = null;
+		if (c.GetComponent<SliderScript>())
+			slider = null;
 	}
 }

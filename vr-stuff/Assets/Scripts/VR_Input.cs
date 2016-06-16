@@ -59,10 +59,12 @@ public class VR_Input : MonoBehaviour {
 			}
 		}
 
+		// Move Slider
 		if (controller.GetPress(trigger) && slider != null) {
 			slider.Move(transform);
 		}
 
+		// Press Button
 		if (controller.GetPressDown(trigger) && button != null) {
 			button.Press();
 		}
@@ -79,14 +81,14 @@ public class VR_Input : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerEnter (Collider c) {
+	void OnTriggerEnter(Collider c) {
 		if (c.GetComponent<Holdable>() != null) {
 			holdable = c.GetComponent<Holdable>();
 			holdable.SetHighlightColor();
 		} else if (c.GetComponent<Button>() != null) {
 			button = c.GetComponent<Button>();
-		} else if (c.transform.root.GetComponent<SliderScript>() != null) {
-			slider = c.transform.root.GetComponent<SliderScript>();
+		} else if (c.transform.parent.parent.GetComponent<SliderScript>() != null) {
+			slider = c.transform.parent.parent.GetComponent<SliderScript>();
 		}
 	}
 
@@ -95,8 +97,11 @@ public class VR_Input : MonoBehaviour {
 		if (holdableExit != null)
 			holdableExit.ResetColor();
 
-		holdable = null;
-		button = null;
-		slider = null;
+		if (c.transform == holdable.transform)
+			holdable = null;
+		if (c.transform == button.transform)
+			button = null;
+		if(c.transform == slider.transform)
+			slider = null;
 	}
 }

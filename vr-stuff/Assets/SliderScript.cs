@@ -7,7 +7,7 @@ public class SliderScript : MonoBehaviour {
 	public Transform handle;
 	public Text valueText;
 
-	float value;
+	float value = 1f;
 
 	public void Move (Transform t) {
 
@@ -16,7 +16,7 @@ public class SliderScript : MonoBehaviour {
 		handle.localPosition = new Vector3(0, 1, z);
 
 		value = 0.5f + z; // 0 - 1 range
-		valueText.text = "" + Mathf.Round(value * 100) / 100;
+		valueText.text = "" + Mathf.Round(value * 10) / 10;
 	}
 
 	public float GetValue () {
