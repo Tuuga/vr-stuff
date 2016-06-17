@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Debug_Input : MonoBehaviour {
 
@@ -12,6 +13,8 @@ public class Debug_Input : MonoBehaviour {
 	Button button;
 
 	SliderScript slider;
+	List<SliderScript> currentSliders = new List<SliderScript>();
+
 
 	void Start () {
 		rb = GetComponent<Rigidbody>();
@@ -76,10 +79,14 @@ public class Debug_Input : MonoBehaviour {
 		if (c.GetComponent<Holdable>() != null) {
 			holdable = c.GetComponent<Holdable>();
 			holdable.SetHighlightColor();
+
 		} else if (c.GetComponent<Button>() != null) {
 			button = c.GetComponent<Button>();
+			
 		} else if (c.transform.parent.parent.GetComponent<SliderScript>() != null) {
-			slider = c.transform.parent.parent.GetComponent<SliderScript>();
+			var newSlider = c.transform.parent.parent.GetComponent<SliderScript>();
+			currentSliders.Add(newSlider);
+			slider = currentSliders[0];
 		}
 	}
 
@@ -94,7 +101,15 @@ public class Debug_Input : MonoBehaviour {
 		if (c.GetComponent<Button>() != null)
 			button = null;
 
-		if (c.GetComponent<SliderScript>() != null)
+		var sliderExit = c.transform.parent.parent.GetComponent<SliderScript>();
+
+		if (currentSliders.Contains(sliderExit))
+			currentSliders.Remove(sliderExit);
+
+		if (currentSliders.Count > 0) {
+			slider = currentSliders[0];
+		} else {
 			slider = null;
+		}
 	}
 }
